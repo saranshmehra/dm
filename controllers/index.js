@@ -8,6 +8,11 @@ const {
   deleteUser
 } = require('../services');
 
+app.use(express.json());
+app.use(express.urlencoded({
+  extended: true
+}));
+
 app.post('/create', saveValidation, (req, res) => {
   saveUser(req.body)
     .then(user => {
@@ -28,8 +33,9 @@ app.get('/read', (req, res) => {
     });
 });
 
-app.put('/update', editValidation, (req, res) => {
-  editUser({ name: 'Alok' }, req.body, { new: true })
+app.put('/update/:id', editValidation, (req, res) => {
+  const { id } = req.params;
+  editUser(id, req.body, { new: true })
     .then(user => {
       res.send(user)
     })

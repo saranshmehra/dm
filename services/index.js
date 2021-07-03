@@ -12,8 +12,8 @@ const listUsers = async (select, project) => user.find(select, project)
   .lean()
   .exec();
 
-const editUser = async (find, update, options) =>
-  user.findOneAndUpdate(find, update, options)
+const editUser = async (id, update, options) =>
+  user.findByIdAndUpdate(id, update, options)
     .lean()
     .exec();
 
